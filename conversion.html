@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversion</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #b3d9f9;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header Section */
+    .header {
+      background-color: #000000;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 1.5em;
+    }
+
+    /* Navigation Bar */
+    .nav {
+      background-color: #000000;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: #3b6978;
+    }
+
+    /* Main Content */
+    .content {
+      flex: 1;
+      background-color: white;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .content h2 {
+      margin-bottom: 20px;
+    }
+
+    .content label {
+      display: block;
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+
+    .content input,
+    .content button {
+      width: 80%;
+      padding: 10px;
+      margin: 10px auto;
+      display: block;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .content button {
+      background-color: #84a9ac;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .content button:hover {
+      background-color: #3b6978;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #000000;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    Assignment 1: Conversion
+  </div>
+
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="conversion.html" class="active">Conversion</a>
+    <a href="tax.html">Income Tax</a>
+    <a href="factorial.html">Factorial</a>
+    <a href="payroll.html">Payroll</a>
+  </div>
+
+  <div class="content">
+    <h2>Conversion Options</h2>
+    <p>Select the conversion you would like to perform:</p>
+
+    <label for="conversionType">Conversion Type:</label>
+    <select id="conversionType" onchange="showConversionForm()" style="width: 80%; padding: 10px; margin: 10px auto; font-size: 1em;">
+      <option value="">-- Select Conversion --</option>
+      <option value="celsius">Celsius to Fahrenheit</option>
+      <option value="fahrenheit">Fahrenheit to Celsius</option>
+      <option value="meters">Meters to Feet</option>
+      <option value="feet">Feet to Meters</option>
+    </select>
+
+    <!-- Conversion Forms -->
+    <div id="conversionForm" style="display: none;">
+      <label id="inputLabel" for="inputValue"></label>
+      <input type="number" id="inputValue" placeholder="Enter value">
+      <button onclick="performConversion()">Convert</button>
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    © Karl Hameed L. Cayugan.
+  </div>
+
+  <script>
+    function showConversionForm() {
+      const conversionType = document.getElementById("conversionType").value;
+      const form = document.getElementById("conversionForm");
+      const label = document.getElementById("inputLabel");
+      const input = document.getElementById("inputValue");
+
+      if (conversionType) {
+        form.style.display = "block";
+
+        if (conversionType === "celsius") {
+          label.textContent = "Enter Celsius:";
+          input.placeholder = "Enter Celsius";
+        } else if (conversionType === "fahrenheit") {
+          label.textContent = "Enter Fahrenheit:";
+          input.placeholder = "Enter Fahrenheit";
+        } else if (conversionType === "meters") {
+          label.textContent = "Enter Meters:";
+          input.placeholder = "Enter Meters";
+        } else if (conversionType === "feet") {
+          label.textContent = "Enter Feet:";
+          input.placeholder = "Enter Feet";
+        }
+      } else {
+        form.style.display = "none";
+      }
+    }
+
+    function performConversion() {
+      const conversionType = document.getElementById("conversionType").value;
+      const input = parseFloat(document.getElementById("inputValue").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(input)) {
+        result.textContent = "Please enter a valid number.";
+        return;
+      }
+
+      if (conversionType === "celsius") {
+        result.textContent = `${input}°C is ${(input * 9 / 5 + 32).toFixed(2)}°F.`;
+      } else if (conversionType === "fahrenheit") {
+        result.textContent = `${input}°F is ${((input - 32) * 5 / 9).toFixed(2)}°C.`;
+      } else if (conversionType === "meters") {
+        result.textContent = `${input} meters is ${(input * 3.28084).toFixed(2)} feet.`;
+      } else if (conversionType === "feet") {
+        result.textContent = `${input} feet is ${(input / 3.28084).toFixed(2)} meters.`;
+      }
+    }
+  </script>
+</body>
+
+</html>
